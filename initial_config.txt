@@ -76,5 +76,10 @@
 	
 15. Probar cerrando sesión e iniciando nuevamente
 
+Tip: Despues de instalar tilix, crea el directorio ~/.config/tilix/schemes con:
+	mkdir ~/.config/tilix/schemes/
+	
+Lo que te permitirá guardar esquemas personalizados de la terminal tilix :)
+
 
 
