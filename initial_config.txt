@@ -1,0 +1,80 @@
+0. Instalar y configurar git y docker siguiendo la guia install_docker_debian.txt
+
+1. Descargar java jdk en formato .deb y cada ide en formato .tar.gz (intellij, webstorm, datagrip, vscode)
+
+2. Instalar el jdk con:
+	sudo dpkg -i <archivo.tar.gz>
+
+3. Configurar variable JAVA_HOME y PATH en el archivo ~/.profile
+	nano ~/.profile
+	
+	3.1 y meter lo siguiente:
+		export JAVA_HOME="/usr/lib/jvm/<nombre-de-carpeta-jdk"
+		export PATH="$JAVA_HOME/bin:$PATH"
+
+4. Crear directorio ~/Develop/ con:
+	mkdir ~/Develop
+
+5. Descomprimir cada .tar.gz en ~/Develop/ con:
+	tar -xzf ~/Descargas/idea.tar.gz -C ~/Develop/
+	tar -xzf ~/Descargas/webstorm.tar.gz -C ~/Develop/
+	tar -xzf ~/Descargas/datagrip.tar.gz -C ~/Develop/
+	tar -xzf ~/Descargas/vscode.tar.gz -C ~/Develop/
+
+6. Renombrar cada carpeta de cada programa con un nombre más corto y accesible y ejecutar cada aplicacion:
+	mv ~/Develop/idea-ultimate-descrimprimido ~/Develop/idea-ultimate
+	mv ~/Develop/webstorm-descrimprimido ~/Develop/webstorm
+	mv ~/Develop/datagrip-descrimprimido ~/Develop/datagrip
+	mv ~/Develop/vscode-descrimprimido ~/Develop/vscode
+
+7. Crear el directorio ~/.local/bin/ con:
+	mkdir ~/.local/bin
+
+8. Crear los links simbólicos:
+	ln -s /home/hrubendc/Develop/idea-ultimate/bin/idea ~/.local/bin/idea
+	ln -s /home/hrubendc/Develop/datagrip/bin/datagrip ~/.local/bin/datagrip
+	ln -s /home/hrubendc/Develop/webstorm/bin/idea ~/.local/bin/webstorm
+	ln -s /home/hrubendc/Develop/vscode/code ~/.local/bin/code
+
+9. Crear el archivo ~/.bash_aliases con:
+	nano ~/.bash_aliases
+
+	9.1 Meter los alias en el archivo ~/.bash_aliases usando nano:
+		alias idea='nohup ~/.local/bin/idea > /dev/null 2>&1 & disown'
+		alias datagrip='nohup ~/.local/bin/datagrip > /dev/null 2>&1 & disown'
+		alias webstorm='nohup ~/.local/bin/webstorm > /dev/null 2>&1 & disown'
+
+10. Crear el directorio ~/.bash_utils/ con:
+	mkdir ~/.bash_utils
+
+11. Crear el archivo docker_utils.sh (copiar el contenido del archivo de docker_utils.txt) dentro de ~/.bash_utils/
+	nano ~/.bash_utils/docker_utils.sh
+
+12. Crear los alias para docker en ~/.bash_aliases usando nano:
+	nano ~/.bash_aliases
+	
+	12.1 Meter los alias ahi:
+		alias dockeron='docker_start'
+		alias dockeroff='docker_stop'
+		alias dockerst='docker_status'
+
+13. Modificar el ~/.bashrc y meter lo siguiente al final:
+	# Load all functions and utilities from ~/.bash_utils
+	if [ -d ~/.bash_utils ]; then
+		for file in ~/.bash_utils/*.sh; do
+			[ -r "$file" ] && . "$file"
+		done
+	fi
+
+	# Load aliases if exists
+	if [ -f ~/.bash_aliases ]; then
+		. ~/.bash_aliases
+	fi
+	
+14. Aplicar los cambios de ~/.bashrc con:
+	source ~/.bashrc
+	
+15. Probar cerrando sesión e iniciando nuevamente
+
+
+
